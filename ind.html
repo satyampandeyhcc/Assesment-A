@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pantry CRUD Frontend</title>
+</head>
+<body>
+  <h1>Pantry CRUD Frontend</h1>
+
+  <!-- Create an item -->
+  <h2>Create Item</h2>
+  <label for="createBasketKey">Basket Key:</label>
+  <input type="text" id="createBasketKey" placeholder="Enter Basket Key">
+  <br>
+  <label for="createPayload">Payload (JSON):</label>
+  <textarea id="createPayload" placeholder="Enter Payload"></textarea>
+  <br>
+  <button onclick="createItem()">Create Item</button>
+
+  <!-- Get an item -->
+  <h2>Get Item</h2>
+  <label for="getBasketKey">Basket Key:</label>
+  <input type="text" id="getBasketKey" placeholder="Enter Basket Key">
+  <br>
+  <button onclick="getItem()">Get Item</button>
+  <div id="getItemResult"></div>
+
+  <!-- List baskets -->
+  <h2>List Baskets</h2>
+  <button onclick="listBaskets()">List Baskets</button>
+  <div id="listBasketsResult"></div>
+
+  <!-- Update an item -->
+  <h2>Update Item</h2>
+  <label for="updateBasketKey">Basket Key:</label>
+  <input type="text" id="updateBasketKey" placeholder="Enter Basket Key">
+  <br>
+  <label for="updatePayload">New Payload (JSON):</label>
+  <textarea id="updatePayload" placeholder="Enter New Payload"></textarea>
+  <br>
+  <button onclick="updateItem()">Update Item</button>
+
+  <!-- Delete an item -->
+  <h2>Delete Item</h2>
+  <label for="deleteBasketKey">Basket Key:</label>
+  <input type="text" id="deleteBasketKey" placeholder="Enter Basket Key">
+  <br>
+  <button onclick="deleteItem()">Delete Item</button>
+
+  <script>
+    // Functions to interact with the API
+    async function createItem() {
+      const basketKey = document.getElementById('createBasketKey').value;
+      const payload = JSON.parse(document.getElementById('createPayload').value);
+
+      try {
+        const response = await fetch('/add-item', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ basketKey, payload }),
+        });
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    async function getItem() {
+      const basketKey = document.getElementById('getBasketKey').value;
+
+      try {
+        const response = await fetch(`/get-item/${basketKey}`);
+        const result = await response.json();
+        document.getElementById('getItemResult').innerHTML = JSON.stringify(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    async function listBaskets() {
+      try {
+        const response = await fetch('/list-baskets');
+        const result = await response.json();
+        document.getElementById('listBasketsResult').innerHTML = JSON.stringify(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    async function updateItem() {
+      const basketKey = document.getElementById('updateBasketKey').value;
+      const payload = JSON.parse(document.getElementById('updatePayload').value);
+
+      try {
+        const response = await fetch(`/update-item/${basketKey}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    async function deleteItem() {
+      const basketKey = document.getElementById('deleteBasketKey').value;
+
+      try {
+        const response = await fetch(`/delete-item/${basketKey}`, {
+          method: 'DELETE',
+        });
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  </script>
+</body>
+</html>
+ 

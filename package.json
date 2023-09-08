@@ -1,0 +1,16 @@
+{
+  "name": "assesment",
+  "version": "1.0.0",
+  "description": "crud operations api with containerization introduction",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Satyam",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
