@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 
-const PANTRY_ID = 'your-pantry-id';
+const PANTRY_ID = 'ed2a282e-a843-4c5a-8d42-741784311a88';
 
 // Endpoint to add an item to the Pantry
 app.post('/add-item', async (req, res) => {
