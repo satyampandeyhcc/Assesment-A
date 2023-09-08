@@ -80,11 +80,3 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-// Dockerfile content:
-// FROM node:14
-// WORKDIR /app
-// COPY package*.json ./
-// RUN npm install
-// COPY . .
-// EXPOSE 9443
-// CMD ["node", "app.js"]
